@@ -1,8 +1,9 @@
 package alipay_test
 
 import (
-	"github.com/smartwalle/alipay"
 	"testing"
+
+	"github.com/smartwalle/alipay"
 )
 
 func TestAliPay_FundTransToAccountTransfer(t *testing.T) {
@@ -49,6 +50,57 @@ func TestAliPay_FundAuthOrderAppFreeze(t *testing.T) {
 	p.ProductCode = "PRE_AUTH_ONLINE"
 
 	rsp, err := client.FundAuthOrderAppFreeze(p)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(rsp)
+}
+
+// FundTransUniTransfer 单笔转账接口
+func TestClient_FundTransUniTransfer(t *testing.T) {
+	t.Log("========== FundTransUniTransfer ==========")
+	var param = alipay.FundTransUniTransfer{
+		OutBizNo:    "1111",
+		TransAmount: "10.00",
+		ProductCode: "TRANS_ACCOUNT_NO_PWD",
+		BizScene:    "DIRECT_TRANSFER",
+		OrderTitle:  "remark",
+		PayeeInfo: &alipay.PayeeInfo{
+			Identity:     "xwmkjn7612@sandbox.com",
+			IdentityType: "ALIPAY_LOGON_ID",
+			Name:         "沙箱环境",
+		},
+		Remark: "remark",
+	}
+	rsp, err := client.FundTransUniTransfer(param)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(rsp)
+}
+
+// FundTransCommonQuery 转账业务单据查询接口
+func TestClient_FundTransCommonQuery(t *testing.T) {
+	t.Log("========== FundTransCommonQuery ==========")
+	var param = alipay.FundTransCommonQuery{
+		ProductCode: "TRANS_ACCOUNT_NO_PWD",
+		BizScene:    "DIRECT_TRANSFER",
+		OutBizNo:    "1111",
+	}
+	rsp, err := client.FundTransCommonQuery(param)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(rsp)
+}
+
+// FundAccountQuery 支付宝资金账户资产查询接口
+func TestClient_FundAccountQuery(t *testing.T) {
+	t.Log("========== FundAccountQuery ==========")
+	var param = alipay.FundAccountQuery{
+		AliPayUserId: "2088102169227503",
+	}
+	rsp, err := client.FundAccountQuery(param)
 	if err != nil {
 		t.Fatal(err)
 	}

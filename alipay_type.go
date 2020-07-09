@@ -22,6 +22,23 @@ const (
 	kSignNodeName   = "sign"
 )
 
+// Code 支付宝接口响应 code https://doc.open.alipay.com/docs/doc.htm?treeId=291&articleId=105806&docType=1
+type Code string
+
+func (c Code) IsSuccess() bool {
+	return c == CodeSuccess
+}
+
+const (
+	CodeSuccess          Code = "10000" // 接口调用成功
+	CodeUnknowError      Code = "20000" // 服务不可用
+	CodeInvalidAuthToken Code = "20001" // 授权权限不足
+	CodeMissingParam     Code = "40001" // 缺少必选参数
+	CodeInvalidParam     Code = "40002" // 非法的参数
+	CodeBusinessFailed   Code = "40004" // 业务处理失败
+	CodePermissionDenied Code = "40006" // 权限不足
+)
+
 const (
 	K_SIGN_TYPE_RSA2 = "RSA2"
 	K_SIGN_TYPE_RSA  = "RSA"
