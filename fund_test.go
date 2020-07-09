@@ -3,7 +3,7 @@ package alipay_test
 import (
 	"testing"
 
-	"github.com/smartwalle/alipay"
+	"github.com/JeffreyBool/alipay"
 )
 
 func TestAliPay_FundTransToAccountTransfer(t *testing.T) {
